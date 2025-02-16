@@ -20,8 +20,15 @@ export default function LoginPage() {
     try {
       const response = await axios.post('http://localhost:3007/users/login', { email, password });
       setMessage(response.data.message);
-      // Simpan token di localStorage atau context state
+
+      // Simpan token dan nama pengguna di localStorage
       localStorage.setItem('token', response.data.data.token);
+      localStorage.setItem('name', response.data.data.name); // Simpan nama pengguna
+
+
+
+      // Redirect ke halaman dashboard
+      router.push('/admin');
     } catch (error) {
       setMessage(error.response?.data?.message || 'Terjadi kesalahan pada server.');
     }
@@ -31,9 +38,9 @@ export default function LoginPage() {
     router.push('/forget-password'); // Navigate to the forgot password page
   };
 
-  const navigateToAdmin = () => {
-    router.push('/admin');
-  }
+  const navigateToRegister = () => {
+    router.push('/register'); // Navigate to the register page
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -64,7 +71,6 @@ export default function LoginPage() {
           <button
             type="submit"
             className="w-full bg-indigo-500 text-white py-3 rounded-lg hover:bg-indigo-600 transition duration-300"
-            onClick={navigateToAdmin}
           >
             Login
           </button>
@@ -72,7 +78,15 @@ export default function LoginPage() {
         <div className="text-center mt-4">
           <button
             className="text-indigo-500 hover:underline"
-            onClick={navigateToForgotPassword} // Navigate on click
+            onClick={navigateToRegister}
+          >
+            No have account?
+          </button>
+        </div>
+        <div className="text-center mt-4">
+          <button
+            className="text-indigo-500 hover:underline"
+            onClick={navigateToForgotPassword}
           >
             Lupa password?
           </button>
