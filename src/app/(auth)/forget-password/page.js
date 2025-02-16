@@ -1,8 +1,8 @@
 'use client'
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faArrowLeft, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 export default function ForgotPasswordPage() {
@@ -23,7 +23,7 @@ export default function ForgotPasswordPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3007/users/forget_password",
+        "http://localhost:3008/users/forget_password",
         { email }
       );
       setMessage(response.data.message);
@@ -41,7 +41,7 @@ export default function ForgotPasswordPage() {
           className="absolute top-5 left-5 w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-md hover:bg-purple-500"
         >
         
-          <FontAwesomeIcon icon={faArrowLeft} color="#6B46C1" />
+          {/* <FontAwesomeIcon icon={faArrowLeft} color="#6B46C1" /> */}
         </button>
       <div className="relative bg-white shadow-xl rounded-2xl p-8 flex max-w-5xl w-full">
         
@@ -71,10 +71,10 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  <FontAwesomeIcon
+                  {/* <FontAwesomeIcon
                     icon={faEnvelope}
                     className="absolute right-3 top-3 text-gray-500"
-                  />
+                  /> */}
                 </div>
               </div>
 

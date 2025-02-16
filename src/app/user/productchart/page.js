@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+// import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 const productchart = () => {
   const router = useRouter();
@@ -88,7 +88,7 @@ const productchart = () => {
         {/* Chart Container */}
         <div className="flex-1 flex flex-col items-center justify-center">
           <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-6xl mx-auto">
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <BarChart 
                 width={width} 
                 height={height} 
@@ -124,7 +124,7 @@ const productchart = () => {
                   barSize={130} // Increased from 60 to 80 for wider bars
                 />
               </BarChart>
-            </div>
+            </div> */}
             <div className="text-center text-sm text-gray-500 mt-6">
               2024 © Eskayvie
             </div>

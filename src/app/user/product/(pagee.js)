@@ -1,20 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BsCart4 } from "react-icons/bs";
-import { RiAlignLeft } from "react-icons/ri";
-import { FaUserCircle } from "react-icons/fa";
-import { MdFavorite } from "react-icons/md";
-import { IoLogOut } from "react-icons/io5";
-import { TbCircleLetterEFilled } from "react-icons/tb";
-import { MdOutlineDashboard } from "react-icons/md";
-import { FiShoppingBag } from "react-icons/fi";
-import Navbar from "../components/Elements/Navbar";
-import Button from "../components/Elements/Buttons";
+// import { BsCart4 } from "react-icons/bs";
+// import { RiAlignLeft } from "react-icons/ri";
+// import { FaUserCircle } from "react-icons/fa";
+// import { MdFavorite } from "react-icons/md";
+// import { IoLogOut } from "react-icons/io5";
+// import { TbCircleLetterEFilled } from "react-icons/tb";
+// import { MdOutlineDashboard } from "react-icons/md";
+// import { FiShoppingBag } from "react-icons/fi";
+// import Navbar from "../components/Elements/Navbar";
+// import Button from "../components/Elements/Buttons";
 
 const Order = () => {
   return (
     <>
-      <Navbar name="Order" />
+   
 
       <div className="m-3">
         {/** Order Card */}

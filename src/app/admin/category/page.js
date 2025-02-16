@@ -22,7 +22,7 @@ const router = useRouter();
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("http://localhost:3007/categorys");
+      const response = await axios.get("http://localhost:3008/categorys");
       setCategories(response.data.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -39,7 +39,7 @@ const router = useRouter();
     }
 
     try {
-      await axios.post("http://localhost:3007/categorys", {
+      await axios.post("http://localhost:3008/categorys", {
         name: categoryName,
       });
       setCategoryName("");
@@ -53,6 +53,12 @@ const router = useRouter();
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md mt-10">
+       <button
+        onClick={() => router.back()}
+        className="mb-4 bg-gray-300 text-black py-2 px-4 rounded hover:bg-gray-400"
+      >
+        Kembali
+      </button>
       <h1 className="text-2xl font-bold mb-4">Category Management</h1>
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="mb-4">

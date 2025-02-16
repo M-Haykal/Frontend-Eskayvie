@@ -1,26 +1,38 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation"; // Menggunakan useParams untuk App Router
+import { useParams, useRouter } from "next/navigation"; 
 
 const Checkout = () => {
-  const [order, setOrder] = useState(null); // Untuk menyimpan data order
-  const [paymentMethod, setPaymentMethod] = useState(""); // Untuk menyimpan metode pembayaran yang dipilih
-  const [totalAmount, setTotalAmount] = useState(0); // Untuk menyimpan total amount
-  const { id } = useParams(); // Mengambil orderId dari params URL
+  const [order, setOrder] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [totalAmount, setTotalAmount] = useState(0);
+  const { id } = useParams();
+  const router = useRouter();
 
   useEffect(() => {
-    if (!id) return; // Tunggu hingga id tersedia
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You are not authorized. Please log in first.");
+      router.push("/login"); // Redirect to login page if no token
+      return;
+    }
 
-    // Mengambil data order berdasarkan orderId
+    if (!id) return;
+
     const fetchOrderData = async () => {
       try {
-        const res = await fetch(`http://localhost:3007/orders/${id}`);
+        const res = await fetch(`http://localhost:3008/orders/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const data = await res.json();
 
         if (res.status === 200) {
           setOrder(data.data_order);
-          setTotalAmount(data.data_order.totalAmount); // Mengatur total amount
+          setTotalAmount(data.data_order.totalAmount);
         } else {
           alert("Error fetching order data.");
         }
@@ -31,7 +43,7 @@ const Checkout = () => {
     };
 
     fetchOrderData();
-  }, [id]);
+  }, [id, router]);
 
   const handlePayment = async () => {
     if (!paymentMethod) {
@@ -39,12 +51,19 @@ const Checkout = () => {
       return;
     }
 
-    // Kirim data pembayaran ke backend
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You are not authorized. Please log in first.");
+      router.push("/login");
+      return;
+    }
+
     try {
-      const res = await fetch("http://localhost:3007/payments", {
+      const res = await fetch("http://localhost:3008/payments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           orderId: order.id,
@@ -71,14 +90,12 @@ const Checkout = () => {
     <div className="container mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Checkout</h1>
 
-      {/* Tabel Order Items */}
       <table className="min-w-full table-auto border-collapse border border-gray-300 mb-6">
         <thead>
           <tr>
             <th className="border px-4 py-2">Product Name</th>
             <th className="border px-4 py-2">Quantity</th>
             <th className="border px-4 py-2">Price</th>
-            <th className="border px-4 py-2">Total</th>
           </tr>
         </thead>
         <tbody>
@@ -86,20 +103,17 @@ const Checkout = () => {
             <tr key={item.id}>
               <td className="border px-4 py-2">{item.product.name}</td>
               <td className="border px-4 py-2">{item.quantity}</td>
-              <td className="border px-4 py-2">Rp {item.product.price}</td>
               <td className="border px-4 py-2">Rp {item.price}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* Total Amount */}
       <div className="mb-6">
         <strong>Total Amount: </strong>
         <span className="text-xl font-semibold">Rp {totalAmount}</span>
       </div>
 
-      {/* Dropdown Payment Method */}
       <div className="mb-6">
         <label htmlFor="paymentMethod" className="block font-semibold mb-2">
           Payment Method
@@ -117,7 +131,6 @@ const Checkout = () => {
         </select>
       </div>
 
-      {/* Button Checkout */}
       <button
         onClick={handlePayment}
         className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"

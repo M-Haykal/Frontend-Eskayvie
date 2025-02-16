@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { FaArrowLeft } from "react-icons/fa";
-import OtpInput from "react-otp-input";
+// import { FaArrowLeft } from "react-icons/fa";
+// import OtpInput from "react-otp-input";
 import Image from "next/image";
 
 const OTPPage = () => {
@@ -13,7 +13,7 @@ const OTPPage = () => {
 
         {/* Tombol Kembali */}
         <button className="absolute top-5 left-5 w-10 h-10 bg-purple-400 rounded-full flex justify-center items-center shadow-md hover:bg-purple-500">
-          <FaArrowLeft className="text-white text-lg" />
+          {/* <FaArrowLeft className="text-white text-lg" /> */}
         </button>
 
       {/* Container */}
@@ -42,7 +42,7 @@ const OTPPage = () => {
 
           {/* Input OTP */}
           <div className="flex justify-center w-full">
-            <OtpInput
+            {/* <OtpInput
               value={otp}
               onChange={setOtp}
               numInputs={4}
@@ -53,7 +53,7 @@ const OTPPage = () => {
                   className="flex-grow w-full h-16 md:w-16 md:h-16 text-center border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
               )}
-            />
+            /> */}
           </div>
 
           {/* Tombol Submit */}
