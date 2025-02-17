@@ -258,7 +258,7 @@ const ProductsPage = () => {
               <td className="border-b p-2">{product.stock}</td>
               <td className="border-b p-2">{product.category.name}</td>
               <td className="grid grid-cols-5 gap-4">
-                  {product.images?.slice(0, 5).map((image, index) => (
+                {product.images?.slice(0, 5).map((image, index) => (
                     <img
                       key={index}
                       src={

@@ -1,8 +1,7 @@
-import React from "react";
-// import { FaHeart, FaShoppingBag, FaShoppingBasket, FaShoppingCart } from "react-icons/fa";
-// import { AiOutlineDashboard, AiOutlineSetting, AiOutlineLineChart } from "react-icons/ai";
-// import { FaDumbbell, FaAppleAlt } from "react-icons/fa";
-// import { IoIosLogOut } from "react-icons/io";
+"use client";
+import React, { useEffect, useState } from "react";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
 
 const Sidebar = () => {
   const menuItems = [
@@ -51,7 +50,7 @@ const Navbar = () => {
   );
 };
 
-const ProfilePage = () => {
+const ProfilePage = ({user}) => {
   return (
     <div className="h-screen w-full flex items-center justify-center">
       <div className="w-full h-full flex flex-col items-center justify-center text-center shadow-lg">
@@ -62,14 +61,9 @@ const ProfilePage = () => {
           alt="Profile"
         />
 
-        {/* Nama */}
-        <h2 className="text-5xl font-bold mt-4">Rachel Derek</h2>
-
-        {/* Email */}
-        <p className="text-lg text-gray-500 mt-1">RachelDerek14@gmail.com</p>
-
-        {/* Alamat */}
-        <p className="text-lg text-gray-500 mt-1">Jl. Aja Dulu</p>
+        <h2 className="text-5xl font-bold mt-4">{user?.name || "hahahah"}</h2>
+        <p className="text-lg text-gray-500 mt-1">{user?.email}</p>
+        <p className="text-lg text-gray-500 mt-1">{user?.role}</p>
 
         {/* Nomor Telepon */}
         <p className="text-lg text-gray-500 mt-1">+60 857 225 345 7110</p>
@@ -84,6 +78,36 @@ const ProfilePage = () => {
 };
 
 const Layout = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+    
+      try {
+        // Decode token untuk mendapatkan ID user
+        const decoded = jwtDecode(token);
+        const userId = decoded.id; // Sesuaikan dengan struktur token
+    
+        // Fetch semua user
+        const response = await axios.get("http://localhost:3008/users", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+    
+        // Cari user yang sesuai dengan ID dari token
+        const userData = response.data.find((user) => user.id === userId);
+    
+        setUser(userData || null);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -96,7 +120,7 @@ const Layout = () => {
 
         {/* Konten Profile */}
         <div className="p-8 mt-16 h-full">
-          <ProfilePage />
+          <ProfilePage user={user} />
         </div>
       </div>
     </div>
@@ -104,3 +128,4 @@ const Layout = () => {
 };
 
 export default Layout;
+
