@@ -36,44 +36,38 @@ const ProductDetail = () => {
         Kembali
       </button>
       <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-      <img
-        src={
-          product.images[0]
-            ? `${BASE_URL}${product.images[0].url}`
-            : "/placeholder.jpg"
-        }
-        alt={product.name}
-        className="w-full h-96 object-cover rounded-md mb-4"
-      />
-      <img
-        src={
-          product.images[1]
-            ? `${BASE_URL}${product.images[0].url}`
-            : "/placeholder.jpg"
-        }
-        alt={product.name}
-        className="w-full h-96 object-cover rounded-md mb-4"
-      />
-      <img
-        src={
-          product.images[2]
-            ? `${BASE_URL}${product.images[0].url}`
-            : "/placeholder.jpg"
-        }
-        alt={product.name}
-        className="w-full h-96 object-cover rounded-md mb-4"
-      />
+
+      {/* Menampilkan gambar produk secara dinamis */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {product.images && product.images.length > 0 ? (
+          product.images.map((image, index) => (
+            <img
+              key={index}
+              src={image.url ? `${BASE_URL}${image.url}` : "/placeholder.jpg"}
+              alt={product.name}
+              className="w-full h-96 object-cover rounded-md mb-4"
+            />
+          ))
+        ) : (
+          <img
+            src="/placeholder.jpg"
+            alt="No images available"
+            className="w-full h-96 object-cover rounded-md mb-4"
+          />
+        )}
+      </div>
+
       <p className="text-gray-600">{product.description}</p>
       <p className="text-xl font-bold mt-2">Rp {product.price}</p>
-      <p>stock :{product.stock}</p>
+      <p>Stock: {product.stock}</p>
       <p>
-        Rating :{" "}
+        Rating:{" "}
         {product.averageRating
           ? product.averageRating.toFixed(1)
           : "No rating available"}
       </p>
+      <p>Category: {product.category.name}</p>
 
-      <p>category : {product.category.name}</p>
       <div className="mt-4">
         <h2 className="text-2xl font-bold mb-2">Reviews:</h2>
         {product.reviews.length > 0 ? (
@@ -84,7 +78,6 @@ const ProductDetail = () => {
             >
               <p className="font-semibold">Rating: {review.rating}/5</p>
               <p>{review.comment}</p>
-
               <img
                 src={`${BASE_URL}${review.mediaUrls}`}
                 alt="Review Image"
