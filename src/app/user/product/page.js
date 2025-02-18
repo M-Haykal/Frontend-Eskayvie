@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Navbar from "@/components/navbar";
 
 // Helper function untuk mendapatkan userId dari token
 const getUserIdFromToken = () => {
@@ -150,6 +151,8 @@ const Home = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6">Product List</h1>
 
@@ -305,6 +308,7 @@ const Home = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

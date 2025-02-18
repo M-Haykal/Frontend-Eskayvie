@@ -2,46 +2,13 @@
 
 import Image from 'next/image';
 import {  useRouter } from "next/navigation";
+import Navbar from '@/components/navbar';
 
 export default function ProductShowcase() {
   const router = useRouter();
   return (
     <>
-      <nav className="bg-white shadow-md px-4 py-3 flex justify-between items-center">
-            <div className="text-[#AFA0D7] text-2xl font-firamono font-bold">
-                <h1>ESKAYVIE</h1>
-            </div>
-            <div className="flex items-center">
-                <ul className="text-purple-600 text-lg flex gap-6 md:gap-10 mr-4 md:mr-20">
-                    <li>
-                        home
-                    </li>
-                    <li>
-                        <div className="hover:text-purple-800 cursor-pointer text-[#9B8BC4]">
-                            About Us
-                        </div>
-                    </li>
-                    <li>
-                        <div className="hover:text-purple-800 cursor-pointer text-[#9B8BC4]">
-                            Blog
-                        </div>
-                    </li>
-                    <li>
-                        <div className="hover:text-purple-800 cursor-pointer text-[#9B8BC4]">
-                            Contact Us
-                        </div>
-                    </li>
-                    <li>
-                      <a 
-                        className="hover:text-purple-800 cursor-pointer text-[#9B8BC4]"
-                        onClick={() => router.push('/login')}
-                      >
-                        login
-                      </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+      <Navbar />
       <section className="text-center py-16 px-4">
         <div className="relative max-w-4xl mx-auto">
           {/* <Swiper
