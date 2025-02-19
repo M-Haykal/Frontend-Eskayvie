@@ -115,7 +115,7 @@ const ProductsPage = () => {
 
   return (
     <div className="container mx-auto p-4">
-       <button
+      <button
         onClick={() => router.back()}
         className="mb-4 bg-gray-300 text-black py-2 px-4 rounded hover:bg-gray-400"
       >
@@ -123,6 +123,7 @@ const ProductsPage = () => {
       </button>
       <h1 className="text-2xl font-semibold mb-4">Product Management</h1>
 
+      {/* Form to create new product */}
       <form onSubmit={handleSubmit} className="mb-8 p-4 border rounded-lg">
         <div className="mb-4">
           <label className="block text-sm font-medium">Product Name</label>
@@ -198,6 +199,7 @@ const ProductsPage = () => {
         </button>
       </form>
 
+      {/* Form to upload images for the selected product */}
       <form onSubmit={handleImageSubmit} className="mb-8 p-4 border rounded-lg">
         <h2 className="text-xl font-semibold mb-4">
           Upload Images for Product
@@ -239,6 +241,7 @@ const ProductsPage = () => {
         </button>
       </form>
 
+      {/* Display products in a table */}
       <table className="min-w-full border-collapse">
         <thead>
           <tr>
@@ -247,6 +250,7 @@ const ProductsPage = () => {
             <th className="border-b p-2">Price</th>
             <th className="border-b p-2">Stock</th>
             <th className="border-b p-2">Category</th>
+            <th className="border-b p-2">Images</th>
           </tr>
         </thead>
         <tbody>
@@ -258,7 +262,7 @@ const ProductsPage = () => {
               <td className="border-b p-2">{product.stock}</td>
               <td className="border-b p-2">{product.category.name}</td>
               <td className="grid grid-cols-5 gap-4">
-                  {product.images?.slice(0, 5).map((image, index) => (
+                {product.images?.slice(0, 5).map((image, index) => (
                     <img
                       key={index}
                       src={
