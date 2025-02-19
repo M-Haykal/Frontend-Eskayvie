@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "@/components/navbar";
+import axiosInstance from '@/utils/axiosInstance';
+
 
 const Cart = () => {
   const [orders, setOrders] = useState([]);
@@ -10,11 +12,7 @@ const Cart = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:3008/orders", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const res = await axiosInstance.get("/orders");
         setOrders(res.data.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
