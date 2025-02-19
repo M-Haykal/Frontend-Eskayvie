@@ -37,7 +37,7 @@ export default function ProductShowcase() {
           {[1, 2, 3, 4, 5].map((item) => (
             <div key={item} className="bg-gray-100 p-6 rounded-lg shadow-lg w-64">
               <Image
-                src={`/image/eskayvie${item}.png`}
+                src={`/eskayvie${item}.png`}
                 alt={`Product ${item}`}
                 layout="responsive"
                 width={250}
@@ -52,7 +52,7 @@ export default function ProductShowcase() {
       <section className="bg-purple-100 py-16 text-center px-4">
         <div className="container mx-auto flex flex-col md:flex-row items-center">
           <Image
-            src="/image/doctor.png"
+            src="/doctor.png"
             alt="Doctor Image"
             width={400}
             height={300}
@@ -75,7 +75,7 @@ export default function ProductShowcase() {
           {["100 natural", "shield100", "nodrugs", "halal100", "lovehand"].map((icon, index) => (
             <div key={index} className="text-center">
               <Image
-                src={`/image/${icon}.png`}
+                src={`/${icon}.png`}
                 alt={`Feature ${index + 1}`}
                 width={64}
                 height={64}
@@ -91,14 +91,14 @@ export default function ProductShowcase() {
         <div className="container mx-auto flex flex-col md:flex-row items-center relative">
           <div className="relative w-full md:w-1/2">
             <Image
-              src="/image/cloud1.jpeg"
+              src="/cloud1.jpeg"
               alt="Cloud background"
               width={400}
               height={300}
               className="w-full max-w-xl object-cover mx-auto"
             />
             <Image
-              src="/image/Phytax.png"
+              src="/Phytax.png"
               alt="Phytax Product"
               width={200}
               height={200}
@@ -110,31 +110,31 @@ export default function ProductShowcase() {
             <p className="text-lg text-gray-600 mt-4">
               Expertly crafted from a unique blend of twelve specially selected phytonutrients. This unique composition creates Phytax, a specialized formulation designed to enhance your wellness.
             </p>
-            <button className="bg-[#AFA0D7] text-white rounded-md w-40 h-10 mt-5 shadow-md focus:ring-2 focus:ring-purple-300">
+            {/* <button className="bg-[#AFA0D7] text-white rounded-md w-40 h-10 mt-5 shadow-md focus:ring-2 focus:ring-purple-300">
               Shop now
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="container mx-auto flex flex-col md:flex-row items-center relative">
           <div className="text-left p-8 md:w-1/2 md:ml-8">
-            <h2 className="text-3xl font-bold text-black">botak</h2>
+            <h2 className="text-3xl font-bold text-black"> Phytax</h2>
             <p className="text-lg text-gray-600 mt-4">
               Expertly crafted from a unique blend of twelve specially selected phytonutrients. This unique composition creates Phytax, a specialized formulation designed to enhance your wellness.
             </p>
-            <button className="bg-[#AFA0D7] text-white rounded-md w-40 h-10 mt-5 shadow-md focus:ring-2 focus:ring-purple-300">
+            {/* <button className="bg-[#AFA0D7] text-white rounded-md w-40 h-10 mt-5 shadow-md focus:ring-2 focus:ring-purple-300">
               Shop now
-            </button>
+            </button> */}
           </div>
           <div className="relative w-full md:w-1/2">
             <Image
-              src="/image/cloud1.jpeg"
+              src="/cloud1.jpeg"
               alt="Cloud background"
               width={400}
               height={300}
               className="w-full max-w-xl object-cover mx-auto"
             />
             <Image
-              src="/image/Phytax.png"
+              src="/Phytax.png"
               alt="Phytax Product"
               width={200}
               height={200}
@@ -155,7 +155,7 @@ export default function ProductShowcase() {
               className="bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden transition-transform hover:scale-105"
             >
               <img
-                src={`/image/Phytax.png`}
+                src={`/Phytax.png`}
                 alt={`Eskayvie News ${item}`}
                 className="w-full h-56 object-cover"
               />
@@ -174,9 +174,9 @@ export default function ProductShowcase() {
                 <div className="mt-4">
                   <a
                     href="#"
-                    className="inline-block text-purple-600 font-semibold border border-purple-600 px-4 py-2 rounded-full hover:bg-purple-600 hover:text-white transition-all"
+                    className="inline-block text-purple-600 font-semibold border"
                   >
-                    Read More
+                  
                   </a>
                 </div>
               </div>
@@ -188,7 +188,7 @@ export default function ProductShowcase() {
         <div className="container mx-auto flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 w-full">
             <Image
-              src="/image/ThisIsEskayvie21.jpeg"
+              src="/ThisIsEskayvie21.jpeg"
               alt="Eskayvie Reception"
               width={600}
               height={400}
@@ -201,9 +201,9 @@ export default function ProductShowcase() {
               Discover the company's history and learn how Eskayvie has empowered
               entrepreneurs with business opportunities for over 15 years.
             </p>
-            <button className="mt-6 px-6 py-3 bg-white text-black font-bold rounded-md border border-black hover:bg-gray-200 transition">
+            {/* <button className="mt-6 px-6 py-3 bg-white text-black font-bold rounded-md border border-black hover:bg-gray-200 transition">
               Learn More
-            </button>
+            </button> */}
           </div>
         </div>
       </section>
@@ -212,7 +212,7 @@ export default function ProductShowcase() {
             <div className="mt-10 grid bg-[#AFA0D7] p-5">
                 <div className="mb-6 flex items-center gap-5 ">
                     <a href="">
-                        <img src="/image/logoeskayvie.png" alt="" className="w-14 h-14 rounded-full p-2 bg-white" />
+                        <img src="/logoeskayvie.png" alt="" className="w-14 h-14 rounded-full p-2 bg-white" />
                     </a>
                     <p className="text-2xl font-bold text-[#fefefe]">ESKAYVIE</p>
                 </div>
@@ -246,15 +246,15 @@ export default function ProductShowcase() {
                         <div className='lg:flex gap-5 grid grid-cols-1'>
                             <div className='w-32 p-2 rounded-xl bg-white bg-opacity-50'>
 
-                                <img src="/image/yayasan.png" alt="" />
+                                <img src="/yayasan.png" alt="" />
                             </div>
                             <div className='w-32 p-2 rounded-xl bg-white bg-opacity-50'>
 
-                                <img src="/image/yayasan.png" alt="" />
+                                <img src="/yayasan.png" alt="" />
                             </div>
                             <div className='w-32 p-2 rounded-xl bg-white bg-opacity-50'>
 
-                                <img src="/image/yayasan.png" alt="" />
+                                <img src="/yayasan.png" alt="" />
                             </div>
                         </div>
                     </div>
