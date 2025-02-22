@@ -3,6 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
+import axiosInstance from "@/utils/axiosInstance";
 
 
 // import { FaHeart, FaShoppingBag, FaShoppingBasket, FaStar, FaDollarSign, FaSearch } from "react-icons/fa";
@@ -85,6 +86,14 @@ export default function Dashboard() {
       { name: "Phytax Combo", price: "55.03", oldPrice: "85.37", rating: "4.9", image: "/phytax.svg" },
       { name: "Phytax Combo", price: "55.03", oldPrice: "85.37", rating: "4.9", image: "/phytax.svg" },
     ];
+
+    const fetchUser = async () => {
+      const response = await axiosInstance.get('/users');
+    };
+  
+    useEffect(() => {
+      fetchUser();
+    }, []);
   
     return (
       <div className="flex">
