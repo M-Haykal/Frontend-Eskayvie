@@ -32,48 +32,61 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-sm w-full">
-        <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">Lupa Password</h2>
-        {message && <p className="text-center text-red-500 mb-4">{message}</p>}
-        <form onSubmit={handleForgotPassword} className="space-y-4">
-          <div>
-            <label className="block text-gray-600 mb-1">Email</label>
-            <input
-              type="email"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Masukkan email Anda"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-indigo-500 text-white py-3 rounded-lg hover:bg-indigo-600 transition duration-300"
-            disabled={loading}
-          >
-            {loading ? 'Memproses...' : 'Kirim OTP'}
-          </button>
-        </form>
-        <div className="text-center mt-4">
-          <button
-            className="text-indigo-500 hover:underline"
-            onClick={() => router.push('/')}
-          >
-            Kembali ke login
-          </button>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-100 to-white">
+        <button
+          onClick={() => router.back()}
+          className="absolute top-5 left-5 w-10 h-10 bg-white rounded-full flex justify-center items-center shadow-md hover:bg-purple-500"
+        >
+        
+          {/* <FontAwesomeIcon icon={faArrowLeft} color="#6B46C1" /> */}
+        </button>
+      <div className="relative bg-white shadow-xl rounded-2xl p-8 flex max-w-5xl w-full">
+        
+        {/* Tombol Kembali */}
+
+        {/* Bagian Kiri (Ilustrasi) */}
+        <div className="w-1/2 bg-purple-100 rounded-xl flex items-center justify-center p-10">
+          <img src="/forgot-pic.svg" alt="Forgot Password" className="w-4/3" />
         </div>
-        {/* Link to OTP verification page if OTP is sent */}
-        {otpSent && (
-          <div className="mt-4 text-center">
-            <a
-              href={`/verifikasi-otp?email=${email}`}
-              className="text-indigo-500 hover:underline"
-            >
-              Verifikasi OTP
-            </a>
+
+        {/* Bagian Kanan (Form) */}
+        <div className="w-1/2 p-4 flex items-center justify-center">
+          <div className="w-full">
+            <h2 className="text-2xl  font-bold text-purple-600">Forgot Password</h2>
+            <p className="text-gray-500 mb-6">
+              Enter the email address associated with your account.
+            </p>
+
+            <form onSubmit={handleForgotPassword}>
+              <div className="mb-4 relative">
+                <label className="block text-gray-700">Email</label>
+                <div className="relative">
+                  <input
+                    type="email"
+                    placeholder="Enter email"
+                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  {/* <FontAwesomeIcon
+                    icon={faEnvelope}
+                    className="absolute right-3 top-3 text-gray-500"
+                  /> */}
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition"
+                disabled={loading}
+              >
+                {loading ? "Processing..." : "Reset Password"}
+              </button>
+
+              {message && <p className="text-sm text-gray-500 mt-4 text-center">{message}</p>}
+            </form>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

@@ -1,49 +1,54 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation"; 
-
+import { useParams, useRouter } from "next/navigation";
+import { FaTrash } from "react-icons/fa";
+import Footer from "@/components/footer";
 const Checkout = () => {
   const [order, setOrder] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [totalAmount, setTotalAmount] = useState(0);
+  const [voucherCode, setVoucherCode] = useState("");
   const { id } = useParams();
+  const BASE_URL = "http://localhost:3008";
   const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       alert("You are not authorized. Please log in first.");
-      router.push("/login"); // Redirect to login page if no token
+      router.push("/login");
       return;
     }
 
     if (!id) return;
 
-    const fetchOrderData = async () => {
-      try {
-        const res = await fetch(`http://localhost:3008/orders/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
+     const fetchOrderData = async () => {
+    try {
+      const res = await fetch(`${BASE_URL}/orders/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
-        if (res.status === 200) {
-          setOrder(data.data_order);
-          setTotalAmount(data.data_order.totalAmount);
-        } else {
-          alert("Error fetching order data.");
-        }
-      } catch (error) {
-        console.error("Error fetching order data:", error);
+      const data = await res.json();
+      console.log("Data order:", data); // 👉 Cek isi data order di console
+
+      if (res.status === 200) {
+        setOrder(data.data_order);
+        setTotalAmount(data.data_order.totalAmount);
+      } else {
         alert("Error fetching order data.");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching order data:", error);
+      alert("Error fetching order data.");
+    }
+  };
 
-    fetchOrderData();
-  }, [id, router]);
+  fetchOrderData();
+}, [id, router]);
 
   const handlePayment = async () => {
     if (!paymentMethod) {
@@ -87,56 +92,61 @@ const Checkout = () => {
   if (!order) return <div>Loading...</div>;
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Checkout</h1>
-
-      <table className="min-w-full table-auto border-collapse border border-gray-300 mb-6">
-        <thead>
-          <tr>
-            <th className="border px-4 py-2">Product Name</th>
-            <th className="border px-4 py-2">Quantity</th>
-            <th className="border px-4 py-2">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {order.orderItems.map((item) => (
-            <tr key={item.id}>
-              <td className="border px-4 py-2">{item.product.name}</td>
-              <td className="border px-4 py-2">{item.quantity}</td>
-              <td className="border px-4 py-2">Rp {item.price}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div className="mb-6">
-        <strong>Total Amount: </strong>
-        <span className="text-xl font-semibold">Rp {totalAmount}</span>
+    <div className="max-w mx-auto p-6 bg-white shadow-lg rounded-lg">
+      <h1 className="text-2xl font-bold mb-4">Products ordered</h1>
+      <div className="border rounded-lg p-4 mb-4">
+        {order.orderItems.map((item) => (
+          <div key={item.product.id} className="flex justify-between items-center border-b pb-3 mb-3">
+            <div className="flex items-center">
+            <img src={`${BASE_URL}/${item.product.image}`
+  }
+  alt={item.product.name}
+  className="w-16 h-16 rounded mr-3"
+/>
+              <div>
+                <p className="font-semibold">{item.product.name}</p>
+                <p className="text-sm text-gray-500">{item.product.description}</p>
+                <p className="text-sm text-gray-700">Quantity: <span className="font-bold">{item.quantity}</span></p> 
+              </div>
+            </div>
+            <p className="font-semibold">$ {item.price}</p>
+          </div>
+        ))}
       </div>
 
-      <div className="mb-6">
-        <label htmlFor="paymentMethod" className="block font-semibold mb-2">
-          Payment Method
-        </label>
-        <select
-          id="paymentMethod"
-          className="border p-2 rounded w-full"
-          value={paymentMethod}
-          onChange={(e) => setPaymentMethod(e.target.value)}
+      <h2 className="text-lg font-bold mb-3">Payment Methods</h2>
+      <div className="flex gap-2 mb-4">
+        {["Credit Card", "COD", "Paypal", "E-Wallet", "Dana"].map((method) => (
+          <button
+            key={method}
+            className={`px-4 py-2 rounded-lg ${paymentMethod === method ? "bg-purple-500 text-white" : "bg-gray-200"}`}
+            onClick={() => setPaymentMethod(method)}
+          >
+            {method}
+          </button>
+        ))}
+      </div>
+
+    
+      <div className="border p-4 rounded-lg bg-gray-100">
+        <h2 className="font-bold mb-2">Total</h2>
+        <p className="flex justify-between text-gray-600">
+          Subtotal: <span>$ {totalAmount}</span>
+        </p>
+        <p className="flex justify-between text-gray-600">
+          Discount: <span>- $0</span>
+        </p>
+        <p className="flex justify-between text-lg font-bold mt-2">
+          Total: <span>$ {totalAmount}</span>
+        </p>
+        <button
+          onClick={handlePayment}
+          className="bg-purple-500 text-white w-full py-2 mt-4 rounded-lg"
         >
-          <option value="">Select Payment Method</option>
-          <option value="credit_card">Credit Card</option>
-          <option value="bank_transfer">Bank Transfer</option>
-          <option value="paypal">PayPal</option>
-        </select>
+          ORDER
+        </button>
       </div>
-
-      <button
-        onClick={handlePayment}
-        className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-      >
-        Proceed to Payment
-      </button>
+      <Footer></Footer>
     </div>
   );
 };
